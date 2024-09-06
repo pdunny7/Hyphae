@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import NavBar from './components.NavBar';
+import NavBar from './components/NavBar';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,17 +11,11 @@ function App() {
     <Router>
       <div>
         <NavBar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
-        <Switch>
-          <Route exact path="/login">
-            <Login setIsAuthenticated={setIsAuthenticated} />
-          </Route>
-          <Route exact path="/dashboard">
-            {isAuthenticated ? <Dashboard /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/">
-            <Redirect to="/login" />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
       </div>
     </Router>
   );

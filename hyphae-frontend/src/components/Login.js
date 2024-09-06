@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../services/api';
 
 function Login({ setIsAuthenticated }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ function Login({ setIsAuthenticated }) {
       const data = await login(username, password);
       localStorage.setItem('token', data.access_token);
       setIsAuthenticated(true);
-      history.push('/dashboard');
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
       alert('Login failed. Please check your credentials.');

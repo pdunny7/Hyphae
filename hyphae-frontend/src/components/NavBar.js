@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function NavBar({ isAuthenticated, setIsAuthenticated }) {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
-    history.push('/login');
+    navigate('/login');
   };
 
   return (
