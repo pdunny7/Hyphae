@@ -9,14 +9,14 @@ from app.schemas.mushroom_data import MycologicalDataInDB
 
 router = APIRouter()
 
-@router.get("/mycological-data", response_model=List[MycologicalData])
+@router.get("/mycological-data", response_model=List[MycologicalDataInDB])
 async def get_mycological_data(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     data = db.query(MycologicalData).all()
     return data
 
-@router.post("/mycological-data", response_model=MycologicalData)
-async def create_mycological_data(data: MycologicalData, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-    db_object = MycologicalDataInDB(**data.dict())
+@router.post("/mycological-data", response_model=MycologicalDataInDB)
+async def create_mycological_data(data: MycologicalDataInDB, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    db_object = MycologicalData(**data.dict())
     db.add(db_object)
     db.commit()
     db.refresh(db_object)
