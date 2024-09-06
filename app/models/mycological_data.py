@@ -1,15 +1,14 @@
-from pydantic import BaseModel
-from datetime import datetime
+from sqlalchemy import Column, Integer, String, DateTime, Float
+from app.database import Base
 
-class MycologicalData(BaseModel):
-    id: int
-    species: str
-    strain: str
-    collection_date: datetime
-    location: str
-    temperature: float
-    humidity: float
-    notes: str
+class MycologicalData(Base):
+    __tablename__ = "mycological_data"
 
-    class Config:
-        orm_mode = True
+    id = Column(Integer, primary_key=True, index=True)
+    species = Column(String, index=True)
+    strain = Column(String, index=True)
+    collection_date = Column(DateTime)
+    location = Column(String)
+    temperature = Column(Float)
+    humidity = Column(Float)
+    notes = Column(String)
