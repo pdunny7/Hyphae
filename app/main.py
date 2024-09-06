@@ -93,11 +93,3 @@ class User(BaseModel):
 
 class UserInDB(User):
     hashed_password: str
-
-# requirements.txt
-fastapi==0.68.0
-uvicorn==0.15.0
-pydantic==1.8.2
-passlib==1.7.4
-python-jose==3.3.0
-python-multipart==0.0.5
